@@ -17,6 +17,25 @@
 
 ---
 
+## 🔴 Live Demo — Yoga Pose Assessment in Action
+
+Real people, real-time skeleton detection and angle-based corrections:
+
+| Tree Pose ✅ — All joints correct | Warrior II ⚠️ — Corrections needed |
+|:---:|:---:|
+| ![Tree Pose Skeleton](yoga-pose-assessment/shr.jpg) | ![Warrior II Skeleton](yoga-pose-assessment/tej.jpg) |
+| All joints **green** — 158°/157° arm raise, hip at 171° | **Red joints** = needs fixing. Shoulder 108°, hip 139° off-target |
+
+| Streamlit App — **Warrior II: 93% accuracy** | Streamlit App — **Warrior I: 89% accuracy** |
+|:---:|:---:|
+| ![Warrior II App](yoga-pose-assessment/WhatsApp%20Image%202026-10-24%20at%2000.11.06.jpeg) | ![Warrior I App](yoga-pose-assessment/WhatsApp%20Image%202026-10-24%20at%2000.11.33.jpeg) |
+| *"Bend right knee more (123°, aim ~90°)"* | *"Straighten right elbow (140°, aim ~180°)"* |
+| *"Open left hip (139°, aim ~165°)"* | *"Bend left knee more (119°, aim ~90°)"* |
+
+> 🟢 **Green dot** = joint within correct angle range &nbsp; 🔴 **Red dot** = needs correction &nbsp; Numbers = actual measured degrees
+
+
+
 ## 🖥️ Platform Screenshots
 
 ### Client Landing Page

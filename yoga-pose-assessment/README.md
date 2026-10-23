@@ -5,6 +5,40 @@
 
 ---
 
+## 🔴 Live Demo — Real People, Real Feedback
+
+These are **actual results** from testing our friends' poses through the system. Green dots = joint within correct range. Red dots = needs correction. Numbers = measured angles in degrees.
+
+### Tree Pose (Vrikshasana) — Skeleton Overlay
+![Tree Pose Skeleton](shr.jpg)
+> **All joints green** — arms raised correctly at 158°/157°, hip alignment at 171°. System detected form as accurate.
+
+### Warrior II (Virabhadrasana II) — Corrections Highlighted
+![Warrior II Skeleton](tej.jpg)
+> **Red joints** = corrections needed. Right shoulder at 108° (aim ~90°), left hip at 139° (aim ~165°). System flags exactly what to fix.
+
+---
+
+## 📱 Streamlit App — What It Looks Like
+
+### Warrior II — 93% Accuracy with Feedback
+![Streamlit App - Warrior II](WhatsApp%20Image%202026-10-24%20at%2000.11.06.jpeg)
+> Pose detected: **Warrior II — 93% accuracy**  
+> Feedback given:
+> - *"Bend your right knee more (now 123°, aim for ~90°)"*
+> - *"Open your left hip — lengthen the line from shoulder to knee (now 139°, aim for ~165°)"*
+> - *"Straighten your left knee (now 163°, aim for ~180°)"*
+> - *"Lower your right arm (now 108°, aim for ~90°)"*
+
+### Warrior I — 89% Accuracy with Feedback
+![Streamlit App - Warrior I](WhatsApp%20Image%202026-10-24%20at%2000.11.33.jpeg)
+> Pose detected: **Warrior I — 89% accuracy**  
+> Feedback given:
+> - *"Straighten your right elbow (now 140°, aim for ~180°)"*
+> - *"Bend your left knee more (now 119°, aim for ~90°)"*
+
+---
+
 ## 📸 Sample Test Images
 
 Below are the reference test images used for pose validation. Each pose has 2 reference photos.
