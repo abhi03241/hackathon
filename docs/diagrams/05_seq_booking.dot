@@ -1,0 +1,92 @@
+digraph SequenceBooking {
+    graph [
+        label="Sequence Diagram -- Batch Booking (Concurrency-Safe)"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=15
+        rankdir=LR
+        splines=ortho
+        nodesep=1.2
+        ranksep=0.5
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=10]
+    edge [fontname="Helvetica" fontsize=9]
+
+    // Lifelines
+    node [shape=box style=filled fillcolor="#065F46" fontcolor=white penwidth=2 width=1.8]
+    Browser   [label="Browser\n(Member)"]
+    API       [label="API Layer\n(/api/bookings)"]
+    RouteSvc  [label="Routing\nService"]
+    DB        [label="PostgreSQL\n(Transaction)"]
+    Realtime  [label="Supabase\nRealtime"]
+
+    // Step nodes
+    node [shape=plaintext style="" fillcolor=white fontcolor=black]
+
+    b1  [label="1. Member selects batch and clicks Book"]
+    b2  [label="2. POST /api/bookings\n{member_id, batch_id, booking_type}"]
+    b3  [label="3. Load member health_profile"]
+    b4  [label="4. routeEngine.evaluate(profile) -> blocked[]"]
+    b5  [label="5. Is chosen programme in blocked[]?"]
+    b6a [label="5a. YES -> Return 403 PROGRAMME_BLOCKED"]
+    b6b [label="5b. NO -> Continue"]
+    b7  [label="6. BEGIN TRANSACTION"]
+    b8  [label="7. SELECT booked_count FROM batches\nWHERE id = ? FOR UPDATE (row lock)"]
+    b9  [label="8. booked_count >= capacity?"]
+    b9a [label="8a. YES -> ROLLBACK\nReturn 409 BATCH_FULL"]
+    b9b [label="8b. NO -> Continue"]
+    b10 [label="9. booking_type = 'trial'?\nSELECT COUNT(*) FROM bookings\nWHERE member_id = ? AND booking_type = 'trial'"]
+    b10a [label="9a. Count > 0 -> ROLLBACK\nReturn 409 TRIAL_USED"]
+    b10b [label="9b. Count = 0 -> Continue"]
+    b11 [label="10. INSERT INTO bookings (...)"]
+    b12 [label="11. UPDATE batches\nSET booked_count = booked_count + 1\nWHERE id = ?"]
+    b13 [label="12. COMMIT"]
+    b14 [label="13. Broadcast batch update event"]
+    b15 [label="14. All connected clients receive\nnew seat count in real time"]
+    b16 [label="15. Return 201 booking confirmation"]
+
+    // Ordering
+    {rank=same Browser b1}
+    {rank=same API b2}
+    {rank=same DB b3}
+    {rank=same RouteSvc b4}
+    {rank=same RouteSvc b5}
+    {rank=same API b6a}
+    {rank=same API b6b}
+    {rank=same DB b7}
+    {rank=same DB b8}
+    {rank=same DB b9}
+    {rank=same API b9a}
+    {rank=same DB b9b}
+    {rank=same DB b10}
+    {rank=same API b10a}
+    {rank=same DB b10b}
+    {rank=same DB b11}
+    {rank=same DB b12}
+    {rank=same DB b13}
+    {rank=same Realtime b14}
+    {rank=same Browser b15}
+    {rank=same Browser b16}
+
+    b1 -> b2
+    b2 -> b3 [label="Fetch health data"]
+    b3 -> b4 [label="Evaluate"]
+    b4 -> b5 [label="Check blocklist"]
+    b5 -> b6a [label="blocked" style=dashed color=red]
+    b5 -> b6b [label="allowed" color=green]
+    b6b -> b7
+    b7 -> b8
+    b8 -> b9 [label="Check capacity"]
+    b9 -> b9a [label="full" style=dashed color=red]
+    b9 -> b9b [label="available" color=green]
+    b9b -> b10 [label="Check trial"]
+    b10 -> b10a [label="trial used" style=dashed color=red]
+    b10 -> b10b [label="first trial" color=green]
+    b10b -> b11
+    b11 -> b12
+    b12 -> b13
+    b13 -> b14 [label="Trigger event"]
+    b14 -> b15 [label="WebSocket push"]
+    b13 -> b16 [label="Return to member"]
+}

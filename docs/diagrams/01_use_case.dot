@@ -1,0 +1,117 @@
+digraph UseCaseDiagram {
+    graph [
+        label="NG Yoga Studio -- Use Case Diagram"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=16
+        rankdir=LR
+        splines=ortho
+        pad=0.5
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=11]
+    edge [fontname="Helvetica" fontsize=10]
+
+    // Actors
+    node [shape=none margin=0]
+    NewMember [label=<
+        <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD><FONT POINT-SIZE="28">&#9786;</FONT></TD></TR>
+        <TR><TD><B>New Member</B></TD></TR>
+        </TABLE>
+    >]
+    FrontDesk [label=<
+        <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD><FONT POINT-SIZE="28">&#9786;</FONT></TD></TR>
+        <TR><TD><B>Front Desk / Instructor</B></TD></TR>
+        </TABLE>
+    >]
+    Owner [label=<
+        <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD><FONT POINT-SIZE="28">&#9786;</FONT></TD></TR>
+        <TR><TD><B>Studio Owner</B></TD></TR>
+        </TABLE>
+    >]
+    System [label=<
+        <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD><FONT POINT-SIZE="28">&#9786;</FONT></TD></TR>
+        <TR><TD><B>Scheduler (System)</B></TD></TR>
+        </TABLE>
+    >]
+
+    // System boundary
+    subgraph cluster_system {
+        label="NG Yoga Studio System"
+        style=rounded
+        color="#3B82F6"
+        penwidth=2
+        fontcolor="#3B82F6"
+        fontsize=13
+
+        // Member use cases
+        node [shape=ellipse style=filled fillcolor="#DBEAFE" color="#3B82F6" penwidth=1.5]
+        UC1  [label="Submit Health Intake Form"]
+        UC2  [label="Receive Programme Recommendation"]
+        UC3  [label="Book Batch (Trial)"]
+        UC4  [label="Book Batch (Member)"]
+        UC5  [label="Purchase Membership Plan"]
+        UC6  [label="Join Waitlist"]
+        UC7  [label="View Membership Status"]
+
+        // Staff use cases
+        node [fillcolor="#D1FAE5" color="#059669"]
+        UC8  [label="Search Member by Phone"]
+        UC9  [label="Approve Check-in"]
+        UC10 [label="Deny Check-in (Expired)"]
+        UC11 [label="View Batch Capacity"]
+        UC12 [label="Cancel Booking"]
+
+        // Owner use cases
+        node [fillcolor="#FEF3C7" color="#D97706"]
+        UC13 [label="View Expiring Memberships"]
+        UC14 [label="View Inactive Members"]
+        UC15 [label="Generate WhatsApp Message"]
+        UC16 [label="View Trial Conversion Report"]
+        UC17 [label="Manage Batch Schedules"]
+
+        // System use cases
+        node [fillcolor="#FCE7F3" color="#BE185D"]
+        UC18 [label="Auto-promote Waitlist on Cancellation"]
+        UC19 [label="Mark Membership as Expired"]
+
+        // Include/extend relationships (dashed)
+        UC3 -> UC1 [style=dashed label="<<include>>" dir=back]
+        UC4 -> UC5 [style=dashed label="<<include>>" dir=back]
+        UC9 -> UC8 [style=dashed label="<<include>>" dir=back]
+        UC10 -> UC8 [style=dashed label="<<include>>" dir=back]
+        UC2 -> UC1 [style=dashed label="<<include>>" dir=back]
+        UC15 -> UC13 [style=dashed label="<<extend>>"]
+        UC15 -> UC14 [style=dashed label="<<extend>>"]
+        UC18 -> UC12 [style=dashed label="<<extend>>"]
+    }
+
+    // Actor associations
+    NewMember -> UC1
+    NewMember -> UC3
+    NewMember -> UC4
+    NewMember -> UC5
+    NewMember -> UC6
+    NewMember -> UC7
+
+    FrontDesk -> UC8
+    FrontDesk -> UC9
+    FrontDesk -> UC10
+    FrontDesk -> UC11
+    FrontDesk -> UC12
+
+    Owner -> UC13
+    Owner -> UC14
+    Owner -> UC15
+    Owner -> UC16
+    Owner -> UC17
+    Owner -> UC9
+    Owner -> UC11
+
+    System -> UC18
+    System -> UC19
+}

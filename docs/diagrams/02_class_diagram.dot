@@ -1,0 +1,246 @@
+digraph ClassDiagram {
+    graph [
+        label="NG Yoga Studio -- Domain Class Diagram"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=16
+        rankdir=TB
+        splines=ortho
+        pad=0.6
+        nodesep=0.8
+        ranksep=1.2
+        bgcolor="white"
+    ]
+    node [fontname="Courier" fontsize=10 shape=record style=filled]
+    edge [fontname="Helvetica" fontsize=9]
+
+    // ---- Entities ----
+
+    Member [fillcolor="#DBEAFE" color="#3B82F6" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#3B82F6"><FONT COLOR="white"><B>Member</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + name : string<BR ALIGN="LEFT"/>
+            + phone : string [UNIQUE]<BR ALIGN="LEFT"/>
+            + age : integer<BR ALIGN="LEFT"/>
+            + experienceLevel : ExperienceLevel<BR ALIGN="LEFT"/>
+            + tenantId : UUID [FK] *<BR ALIGN="LEFT"/>
+            + createdAt : timestamp<BR ALIGN="LEFT"/>
+            + updatedAt : timestamp<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + getActiveMemership() : Membership<BR ALIGN="LEFT"/>
+            + hasUsedTrial() : boolean<BR ALIGN="LEFT"/>
+            + daysSinceLastCheckin() : integer<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    HealthProfile [fillcolor="#DBEAFE" color="#3B82F6" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#3B82F6"><FONT COLOR="white"><B>HealthProfile</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + memberId : UUID [FK]<BR ALIGN="LEFT"/>
+            + conditions : Condition[]<BR ALIGN="LEFT"/>
+            + mainGoal : Goal<BR ALIGN="LEFT"/>
+            + consentGiven : boolean<BR ALIGN="LEFT"/>
+            + createdAt : timestamp<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + toRoutingInput() : RoutingInput<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    Programme [fillcolor="#D1FAE5" color="#059669" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#059669"><FONT COLOR="white"><B>Programme</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + name : string<BR ALIGN="LEFT"/>
+            + type : ProgrammeType<BR ALIGN="LEFT"/>
+            + description : string<BR ALIGN="LEFT"/>
+            + isActive : boolean<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + isBlockedFor(profile: HealthProfile) : boolean<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    Batch [fillcolor="#D1FAE5" color="#059669" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#059669"><FONT COLOR="white"><B>Batch</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + programmeId : UUID [FK]<BR ALIGN="LEFT"/>
+            + timeSlot : TimeSlot<BR ALIGN="LEFT"/>
+            + batchDate : date<BR ALIGN="LEFT"/>
+            + capacity : integer<BR ALIGN="LEFT"/>
+            + bookedCount : integer<BR ALIGN="LEFT"/>
+            + instructor : string<BR ALIGN="LEFT"/>
+            + tenantId : UUID [FK] *<BR ALIGN="LEFT"/>
+            + isActive : boolean<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + seatsRemaining() : integer<BR ALIGN="LEFT"/>
+            + isFull() : boolean<BR ALIGN="LEFT"/>
+            + incrementBooking() : void<BR ALIGN="LEFT"/>
+            + decrementBooking() : void<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    Membership [fillcolor="#FEF3C7" color="#D97706" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#D97706"><FONT COLOR="white"><B>Membership</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + memberId : UUID [FK]<BR ALIGN="LEFT"/>
+            + planType : PlanType<BR ALIGN="LEFT"/>
+            + price : integer<BR ALIGN="LEFT"/>
+            + startDate : date<BR ALIGN="LEFT"/>
+            + expiryDate : date<BR ALIGN="LEFT"/>
+            + status : MembershipStatus<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + isActive() : boolean<BR ALIGN="LEFT"/>
+            + isExpired() : boolean<BR ALIGN="LEFT"/>
+            + daysRemaining() : integer<BR ALIGN="LEFT"/>
+            + isExpiringSoon(days: int) : boolean<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    Booking [fillcolor="#FCE7F3" color="#BE185D" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#BE185D"><FONT COLOR="white"><B>Booking</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + memberId : UUID [FK]<BR ALIGN="LEFT"/>
+            + batchId : UUID [FK]<BR ALIGN="LEFT"/>
+            + bookingType : BookingType<BR ALIGN="LEFT"/>
+            + status : BookingStatus<BR ALIGN="LEFT"/>
+            + createdAt : timestamp<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + cancel() : void<BR ALIGN="LEFT"/>
+            + isTrial() : boolean<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    Checkin [fillcolor="#EDE9FE" color="#7C3AED" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#7C3AED"><FONT COLOR="white"><B>Checkin</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + memberId : UUID [FK]<BR ALIGN="LEFT"/>
+            + batchId : UUID [FK]<BR ALIGN="LEFT"/>
+            + checkinTime : timestamp<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    Waitlist [fillcolor="#FEE2E2" color="#DC2626" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#DC2626"><FONT COLOR="white"><B>Waitlist</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + id : UUID [PK]<BR ALIGN="LEFT"/>
+            + memberId : UUID [FK]<BR ALIGN="LEFT"/>
+            + batchId : UUID [FK]<BR ALIGN="LEFT"/>
+            + position : integer<BR ALIGN="LEFT"/>
+            + notified : boolean<BR ALIGN="LEFT"/>
+            + createdAt : timestamp<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + promote() : Booking<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    RoutingEngine [fillcolor="#F0FDF4" color="#166534" penwidth=2 style="filled,dashed" label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#166534"><FONT COLOR="white"><B>RoutingEngine (Service)</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">
+            - rules : RoutingRule[]<BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+            + evaluate(input: RoutingInput) : RoutingResult<BR ALIGN="LEFT"/>
+            + getBlocked(input) : ProgrammeType[]<BR ALIGN="LEFT"/>
+            + getRecommended(input) : ProgrammeType<BR ALIGN="LEFT"/>
+            + isHardBlocked(input) : boolean<BR ALIGN="LEFT"/>
+        </TD></TR>
+        </TABLE>
+    >]
+
+    // Enumerations
+    node [shape=record style="filled" fillcolor="#F9FAFB" color="#6B7280"]
+
+    EnumExperience [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#6B7280"><FONT COLOR="white"><B>ExperienceLevel</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">BEGINNER<BR ALIGN="LEFT"/>INTERMEDIATE<BR ALIGN="LEFT"/>ADVANCED</TD></TR>
+        </TABLE>
+    >]
+
+    EnumCondition [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#6B7280"><FONT COLOR="white"><B>Condition</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">BACK_PAIN<BR ALIGN="LEFT"/>KNEE_PAIN<BR ALIGN="LEFT"/>HIGH_BP<BR ALIGN="LEFT"/>PCOD<BR ALIGN="LEFT"/>PREGNANCY<BR ALIGN="LEFT"/>NONE</TD></TR>
+        </TABLE>
+    >]
+
+    EnumPlanType [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#6B7280"><FONT COLOR="white"><B>PlanType</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">ONE_MONTH : Rs 1500<BR ALIGN="LEFT"/>THREE_MONTHS : Rs 4000<BR ALIGN="LEFT"/>SIX_MONTHS : Rs 7500</TD></TR>
+        </TABLE>
+    >]
+
+    EnumMembershipStatus [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#6B7280"><FONT COLOR="white"><B>MembershipStatus</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">ACTIVE<BR ALIGN="LEFT"/>EXPIRED<BR ALIGN="LEFT"/>CANCELLED</TD></TR>
+        </TABLE>
+    >]
+
+    EnumBookingStatus [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#6B7280"><FONT COLOR="white"><B>BookingStatus</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">CONFIRMED<BR ALIGN="LEFT"/>CANCELLED<BR ALIGN="LEFT"/>WAITLISTED</TD></TR>
+        </TABLE>
+    >]
+
+    EnumTimeSlot [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#6B7280"><FONT COLOR="white"><B>TimeSlot</B></FONT></TD></TR>
+        <TR><TD ALIGN="LEFT">MORNING<BR ALIGN="LEFT"/>EVENING</TD></TR>
+        </TABLE>
+    >]
+
+    // Relationships
+    Member -> HealthProfile [label="1" arrowhead=odiamond taillabel="1" headlabel="1" dir=both arrowtail=none style=solid]
+    Member -> Membership    [label="has" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+    Member -> Booking       [label="makes" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+    Member -> Checkin       [label="has" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+    Member -> Waitlist      [label="joins" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+
+    Batch -> Booking        [label="contains" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+    Batch -> Checkin        [label="records" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+    Batch -> Waitlist       [label="queues" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+    Programme -> Batch      [label="schedules" arrowhead=open taillabel="1" headlabel="0..*" dir=both arrowtail=none]
+
+    HealthProfile -> RoutingEngine [style=dashed arrowhead=open label="feeds"]
+    RoutingEngine -> Programme     [style=dashed arrowhead=open label="evaluates"]
+
+    // Enum usage (dashed)
+    Member -> EnumExperience        [style=dashed arrowhead=open color="#9CA3AF"]
+    HealthProfile -> EnumCondition  [style=dashed arrowhead=open color="#9CA3AF"]
+    Membership -> EnumPlanType      [style=dashed arrowhead=open color="#9CA3AF"]
+    Membership -> EnumMembershipStatus [style=dashed arrowhead=open color="#9CA3AF"]
+    Booking -> EnumBookingStatus    [style=dashed arrowhead=open color="#9CA3AF"]
+    Batch -> EnumTimeSlot           [style=dashed arrowhead=open color="#9CA3AF"]
+}

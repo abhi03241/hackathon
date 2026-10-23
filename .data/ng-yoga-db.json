@@ -1,0 +1,822 @@
+{
+  "programmes": [
+    {
+      "id": "prog-yoga-therapy",
+      "name": "Back Pain Relief & Wall Rope Yoga Therapy",
+      "type": "Yoga Therapy",
+      "description": "Clinical lumbar decompression, sciatica relief, and knee joint rehabilitation using Iyengar wall ropes, wooden blocks, and bolsters.",
+      "focusAreas": "Lumbar Traction • Cervical Alignment • Knee Rehabilitation",
+      "propsUsed": "Wall Ropes • Wooden Blocks • Cotton Bolsters",
+      "instructor": "NG Gothane (Founder & Therapy Specialist)",
+      "instructorCredentials": "Certified Iyengar Wall-Rope & Spinal Therapy Specialist",
+      "is_active": true
+    },
+    {
+      "id": "prog-pcod",
+      "name": "PCOD / PCOS Hormonal & Metabolic Recovery",
+      "type": "PCOD",
+      "description": "Specialized neuro-endocrine sequence combining pelvic floor circulation, Baddha Konasana variations, and cortisol-lowering pranayama.",
+      "focusAreas": "Pelvic Circulation • Endocrine Balance • Insulin Sensitivity",
+      "propsUsed": "Bolsters • Yoga Straps • Blankets",
+      "instructor": "Acharya Kavita Sharma",
+      "instructorCredentials": "Women’s Health & Therapeutic Yoga Specialist",
+      "is_active": true
+    },
+    {
+      "id": "prog-weight-loss",
+      "name": "Metabolic Vinyasa & Weight Loss Flow",
+      "type": "Weight Loss",
+      "description": "Continuous breath-led Surya Namaskar variations, core metabolic conditioning, and lean stamina building for sustainable fat loss.",
+      "focusAreas": "Metabolic Burn • Core Conditioning • Respiratory Stamina",
+      "propsUsed": "Non-Slip Studio Mat • Alignment Blocks",
+      "instructor": "NG Gothane",
+      "instructorCredentials": "Lead Vinyasa & Metabolic Conditioning Coach",
+      "is_active": true
+    },
+    {
+      "id": "prog-traditional",
+      "name": "Traditional Hatha & Pranayama Foundation",
+      "type": "Traditional",
+      "description": "Grounded Hatha postures, Nadi Shodhana breathwork, and mindful stillness safe for all ages, beginners, and blood pressure regulation.",
+      "focusAreas": "Postural Steadiness • Nervous System Reset • Blood Pressure Care",
+      "propsUsed": "Meditation Cushions • Studio Mats",
+      "instructor": "Pt. Devendra Joshi",
+      "instructorCredentials": "Traditional Hatha & Pranayama Master",
+      "is_active": true
+    },
+    {
+      "id": "prog-iyengar",
+      "name": "Iyengar Precision Alignment & Prop Mobility",
+      "type": "Iyengar",
+      "description": "Anatomical precision using studio props to unlock stiff hips, hamstrings, and shoulders without straining the spine or cardiovascular system.",
+      "focusAreas": "Structural Symmetry • Joint Opening • Safe Hold Duration",
+      "propsUsed": "Wall Ropes • Chairs • Wooden Bricks • Belts",
+      "instructor": "NG Gothane",
+      "instructorCredentials": "Senior Alignment & Prop-Assisted Asana Instructor",
+      "is_active": true
+    },
+    {
+      "id": "prog-power",
+      "name": "Dynamic Power Yoga & Core Strength",
+      "type": "Power",
+      "description": "High-intensity athletic flow, Chaturanga transitions, and isometric strength holds for injury-free intermediate and advanced practitioners.",
+      "focusAreas": "Upper Body Strength • Cardiovascular Endurance • Sweat Flow",
+      "propsUsed": "Studio Mat",
+      "instructor": "Rohan Deshmukh",
+      "instructorCredentials": "Ashtanga & Dynamic Power Flow Instructor",
+      "is_active": true
+    },
+    {
+      "id": "prog-advanced",
+      "name": "Advanced Backbends, Splits & Inversions",
+      "type": "Advanced",
+      "description": "Deep Chakrasana (Wheel), Purna Dhanurasana, Hanumanasana splits, and Sirsasana headstands for seasoned practitioners.",
+      "focusAreas": "Deep Thoracic Backbends • Inversions • Advanced Arm Balances",
+      "propsUsed": "Wall Ropes • Backbend Bench",
+      "instructor": "NG Gothane",
+      "instructorCredentials": "Master Asana & Advanced Backbend Coach",
+      "is_active": true
+    }
+  ],
+  "members": [
+    {
+      "id": "mem-mvl6j0r2",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Arjun Mehta",
+      "phone": "9826077889",
+      "age": 28,
+      "experience_level": "beginner",
+      "created_at": "2026-10-23T16:23:37.357Z",
+      "updated_at": "2026-10-23T16:23:37.357Z"
+    },
+    {
+      "id": "mem-mvl657x7",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Pooja Test Sharma",
+      "phone": "9826047600",
+      "age": 29,
+      "experience_level": "beginner",
+      "created_at": "2026-10-23T16:12:53.467Z",
+      "updated_at": "2026-10-23T16:12:54.139Z"
+    },
+    {
+      "id": "mem-mvl644cc",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Pooja Test Sharma",
+      "phone": "9826044514",
+      "age": 29,
+      "experience_level": "beginner",
+      "created_at": "2026-10-23T16:12:02.172Z",
+      "updated_at": "2026-10-23T16:12:03.113Z"
+    },
+    {
+      "id": "mem-rahul",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Rahul Mehra",
+      "phone": "9826011111",
+      "age": 38,
+      "experience_level": "intermediate",
+      "created_at": "2026-09-08T07:00:00Z",
+      "updated_at": "2026-10-12T07:00:00Z"
+    },
+    {
+      "id": "mem-sunita",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Sunita Khandelwal",
+      "phone": "9826022222",
+      "age": 46,
+      "experience_level": "beginner",
+      "created_at": "2026-09-27T08:30:00Z",
+      "updated_at": "2026-10-21T08:30:00Z"
+    },
+    {
+      "id": "mem-amit",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Amit Patidar",
+      "phone": "9826033333",
+      "age": 52,
+      "experience_level": "intermediate",
+      "created_at": "2026-10-03T08:30:00Z",
+      "updated_at": "2026-10-23T16:16:20.407Z"
+    },
+    {
+      "id": "mem-anjali",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Anjali Verma",
+      "phone": "9876543210",
+      "age": 32,
+      "experience_level": "beginner",
+      "created_at": "2026-09-13T09:00:00Z",
+      "updated_at": "2026-10-18T09:00:00Z"
+    },
+    {
+      "id": "mem-priya",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Priya Nair",
+      "phone": "9826044444",
+      "age": 27,
+      "experience_level": "beginner",
+      "created_at": "2026-10-18T17:30:00Z",
+      "updated_at": "2026-10-18T17:30:00Z"
+    },
+    {
+      "id": "mem-vikram",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Vikramaditya Joshi",
+      "phone": "9826055555",
+      "age": 41,
+      "experience_level": "intermediate",
+      "created_at": "2026-07-27T06:30:00Z",
+      "updated_at": "2026-10-22T06:30:00Z"
+    },
+    {
+      "id": "mem-neha",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Neha Agrawal",
+      "phone": "9826066666",
+      "age": 34,
+      "experience_level": "beginner",
+      "created_at": "2026-10-05T07:30:00Z",
+      "updated_at": "2026-10-14T07:30:00Z"
+    },
+    {
+      "id": "mem-sneha",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Sneha Tiwari",
+      "phone": "9826077777",
+      "age": 29,
+      "experience_level": "intermediate",
+      "created_at": "2026-10-08T08:00:00Z",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "mem-karan",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "name": "Karan Malhotra",
+      "phone": "9826088888",
+      "age": 31,
+      "experience_level": "beginner",
+      "created_at": "2026-10-19T18:00:00Z",
+      "updated_at": "2026-10-19T18:00:00Z"
+    }
+  ],
+  "health_profiles": [
+    {
+      "id": "hp-rahul",
+      "member_id": "mem-rahul",
+      "conditions": [
+        "back_pain"
+      ],
+      "main_goal": "flexibility",
+      "consent_given": true,
+      "created_at": "2026-09-08T07:00:00Z",
+      "updated_at": "2026-09-08T07:00:00Z"
+    },
+    {
+      "id": "hp-sunita",
+      "member_id": "mem-sunita",
+      "conditions": [
+        "knee_pain"
+      ],
+      "main_goal": "stress_relief",
+      "consent_given": true,
+      "created_at": "2026-09-27T08:30:00Z",
+      "updated_at": "2026-09-27T08:30:00Z"
+    },
+    {
+      "id": "hp-amit",
+      "member_id": "mem-amit",
+      "conditions": [
+        "back_pain"
+      ],
+      "main_goal": "stress_relief",
+      "consent_given": true,
+      "created_at": "2026-10-03T08:30:00Z",
+      "updated_at": "2026-10-23T16:16:20.407Z"
+    },
+    {
+      "id": "hp-anjali",
+      "member_id": "mem-anjali",
+      "conditions": [
+        "pcod"
+      ],
+      "main_goal": "weight_loss",
+      "consent_given": true,
+      "created_at": "2026-09-13T09:00:00Z",
+      "updated_at": "2026-09-13T09:00:00Z"
+    },
+    {
+      "id": "hp-priya",
+      "member_id": "mem-priya",
+      "conditions": [
+        "pcod",
+        "back_pain"
+      ],
+      "main_goal": "weight_loss",
+      "consent_given": true,
+      "created_at": "2026-10-18T17:30:00Z",
+      "updated_at": "2026-10-18T17:30:00Z"
+    },
+    {
+      "id": "hp-vikram",
+      "member_id": "mem-vikram",
+      "conditions": [
+        "high_bp"
+      ],
+      "main_goal": "stress_relief",
+      "consent_given": true,
+      "created_at": "2026-07-27T06:30:00Z",
+      "updated_at": "2026-07-27T06:30:00Z"
+    },
+    {
+      "id": "hp-neha",
+      "member_id": "mem-neha",
+      "conditions": [
+        "none"
+      ],
+      "main_goal": "weight_loss",
+      "consent_given": true,
+      "created_at": "2026-10-05T07:30:00Z",
+      "updated_at": "2026-10-05T07:30:00Z"
+    },
+    {
+      "id": "hp-sneha",
+      "member_id": "mem-sneha",
+      "conditions": [
+        "back_pain"
+      ],
+      "main_goal": "flexibility",
+      "consent_given": true,
+      "created_at": "2026-10-08T08:00:00Z",
+      "updated_at": "2026-10-08T08:00:00Z"
+    },
+    {
+      "id": "hp-karan",
+      "member_id": "mem-karan",
+      "conditions": [
+        "none"
+      ],
+      "main_goal": "weight_loss",
+      "consent_given": true,
+      "created_at": "2026-10-19T18:00:00Z",
+      "updated_at": "2026-10-19T18:00:00Z"
+    },
+    {
+      "id": "hp-mvl644cc",
+      "member_id": "mem-mvl644cc",
+      "conditions": [
+        "back_pain"
+      ],
+      "main_goal": "flexibility",
+      "consent_given": true,
+      "created_at": "2026-10-23T16:12:02.172Z",
+      "updated_at": "2026-10-23T16:12:03.113Z"
+    },
+    {
+      "id": "hp-mvl657x7",
+      "member_id": "mem-mvl657x7",
+      "conditions": [
+        "back_pain"
+      ],
+      "main_goal": "flexibility",
+      "consent_given": true,
+      "created_at": "2026-10-23T16:12:53.467Z",
+      "updated_at": "2026-10-23T16:12:54.139Z"
+    },
+    {
+      "id": "hp-mvl6j0r2",
+      "member_id": "mem-mvl6j0r2",
+      "conditions": [
+        "none"
+      ],
+      "main_goal": "fitness",
+      "consent_given": true,
+      "created_at": "2026-10-23T16:23:37.357Z",
+      "updated_at": "2026-10-23T16:23:37.357Z"
+    }
+  ],
+  "batches": [
+    {
+      "id": "batch-1-therapy-am",
+      "programme_id": "prog-yoga-therapy",
+      "programme_type": "Yoga Therapy",
+      "programme_name": "Back Pain Relief & Wall Rope Therapy (Micro-Cohort)",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "morning",
+      "timing_label": "08:30 AM – 09:30 AM",
+      "batch_date": "2026-10-23",
+      "capacity": 6,
+      "booked_count": 6,
+      "instructor": "NG Gothane",
+      "is_micro_group": true,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-2-therapy-pm",
+      "programme_id": "prog-yoga-therapy",
+      "programme_type": "Yoga Therapy",
+      "programme_name": "Evening Spine Decompression & Lumbar Care",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "evening",
+      "timing_label": "05:00 PM – 06:00 PM",
+      "batch_date": "2026-10-23",
+      "capacity": 8,
+      "booked_count": 7,
+      "instructor": "NG Gothane",
+      "is_micro_group": true,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-3-pcod-am",
+      "programme_id": "prog-pcod",
+      "programme_type": "PCOD",
+      "programme_name": "PCOD / PCOS Hormonal & Metabolic Recovery",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "morning",
+      "timing_label": "09:00 AM – 10:00 AM",
+      "batch_date": "2026-10-23",
+      "capacity": 8,
+      "booked_count": 6,
+      "instructor": "Acharya Kavita Sharma",
+      "is_micro_group": true,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-4-weightloss-am",
+      "programme_id": "prog-weight-loss",
+      "programme_type": "Weight Loss",
+      "programme_name": "Sunrise Metabolic Vinyasa & Surya Namaskar",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "morning",
+      "timing_label": "06:30 AM – 07:30 AM",
+      "batch_date": "2026-10-23",
+      "capacity": 15,
+      "booked_count": 12,
+      "instructor": "NG Gothane",
+      "is_micro_group": false,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-5-weightloss-pm",
+      "programme_id": "prog-weight-loss",
+      "programme_type": "Weight Loss",
+      "programme_name": "Evening Metabolic Vinyasa & Core Burn",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "evening",
+      "timing_label": "06:00 PM – 07:00 PM",
+      "batch_date": "2026-10-23",
+      "capacity": 15,
+      "booked_count": 11,
+      "instructor": "NG Gothane",
+      "is_micro_group": false,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-6-traditional-am",
+      "programme_id": "prog-traditional",
+      "programme_type": "Traditional",
+      "programme_name": "Traditional Hatha, Pranayama & BP Care",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "morning",
+      "timing_label": "07:30 AM – 08:30 AM",
+      "batch_date": "2026-10-23",
+      "capacity": 15,
+      "booked_count": 9,
+      "instructor": "Pt. Devendra Joshi",
+      "is_micro_group": false,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-7-iyengar-pm",
+      "programme_id": "prog-iyengar",
+      "programme_type": "Iyengar",
+      "programme_name": "Iyengar Precision Alignment & Wall Props",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "evening",
+      "timing_label": "07:00 PM – 08:00 PM",
+      "batch_date": "2026-10-23",
+      "capacity": 12,
+      "booked_count": 8,
+      "instructor": "NG Gothane",
+      "is_micro_group": false,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-8-power-pm",
+      "programme_id": "prog-power",
+      "programme_type": "Power",
+      "programme_name": "Dynamic Power Yoga & Core Strength",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "evening",
+      "timing_label": "07:30 PM – 08:30 PM",
+      "batch_date": "2026-10-23",
+      "capacity": 14,
+      "booked_count": 10,
+      "instructor": "Rohan Deshmukh",
+      "is_micro_group": false,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "id": "batch-9-advanced-am",
+      "programme_id": "prog-advanced",
+      "programme_type": "Advanced",
+      "programme_name": "Advanced Backbends (Chakrasana) & Inversions",
+      "tenant_id": "tenant-indore-ashok-nagar",
+      "time_slot": "morning",
+      "timing_label": "07:00 AM – 08:30 AM",
+      "batch_date": "2026-10-24",
+      "capacity": 10,
+      "booked_count": 7,
+      "instructor": "NG Gothane",
+      "is_micro_group": false,
+      "is_active": true,
+      "created_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "memberships": [
+    {
+      "id": "ms-mvl69ntw",
+      "member_id": "mem-amit",
+      "plan_type": "3months",
+      "plan_label": "3 Months Practice Commitment",
+      "price": 4000,
+      "start_date": "2026-10-23",
+      "expiry_date": "2027-01-21",
+      "status": "active",
+      "created_at": "2026-10-23T16:16:20.708Z"
+    },
+    {
+      "id": "ms-mvl65fzp",
+      "member_id": "mem-mvl657x7",
+      "plan_type": "1month",
+      "plan_label": "1 Month Practice Pass",
+      "price": 1500,
+      "start_date": "2026-10-23",
+      "expiry_date": "2026-11-22",
+      "status": "active",
+      "created_at": "2026-10-23T16:13:03.925Z"
+    },
+    {
+      "id": "ms-mvl5wsg3",
+      "member_id": "mem-amit",
+      "plan_type": "1month",
+      "plan_label": "1 Month Practice Pass",
+      "price": 1500,
+      "start_date": "2026-10-23",
+      "expiry_date": "2026-11-22",
+      "status": "expired",
+      "created_at": "2026-10-23T16:06:20.163Z"
+    },
+    {
+      "id": "ms-rahul",
+      "member_id": "mem-rahul",
+      "plan_type": "3months",
+      "plan_label": "3 Months Practice Commitment",
+      "price": 4000,
+      "start_date": "2026-09-08",
+      "expiry_date": "2026-12-07",
+      "status": "active",
+      "created_at": "2026-09-08T07:00:00Z"
+    },
+    {
+      "id": "ms-sunita",
+      "member_id": "mem-sunita",
+      "plan_type": "1month",
+      "plan_label": "1 Month Practice Pass",
+      "price": 1500,
+      "start_date": "2026-09-27",
+      "expiry_date": "2026-10-27",
+      "status": "active",
+      "created_at": "2026-09-27T08:30:00Z"
+    },
+    {
+      "id": "ms-amit",
+      "member_id": "mem-amit",
+      "plan_type": "6months",
+      "plan_label": "6 Months Deep Transformation",
+      "price": 7500,
+      "start_date": "2026-10-03",
+      "expiry_date": "2027-04-01",
+      "status": "expired",
+      "created_at": "2026-10-03T08:30:00Z"
+    },
+    {
+      "id": "ms-anjali",
+      "member_id": "mem-anjali",
+      "plan_type": "1month",
+      "plan_label": "1 Month Practice Pass",
+      "price": 1500,
+      "start_date": "2026-09-15",
+      "expiry_date": "2026-10-15",
+      "status": "expired",
+      "created_at": "2026-09-15T09:00:00Z"
+    },
+    {
+      "id": "ms-vikram",
+      "member_id": "mem-vikram",
+      "plan_type": "3months",
+      "plan_label": "3 Months Practice Commitment",
+      "price": 4000,
+      "start_date": "2026-07-27",
+      "expiry_date": "2026-10-25",
+      "status": "active",
+      "created_at": "2026-07-27T06:30:00Z"
+    },
+    {
+      "id": "ms-neha",
+      "member_id": "mem-neha",
+      "plan_type": "1month",
+      "plan_label": "1 Month Practice Pass",
+      "price": 1500,
+      "start_date": "2026-10-05",
+      "expiry_date": "2026-11-04",
+      "status": "active",
+      "created_at": "2026-10-05T07:30:00Z"
+    },
+    {
+      "id": "ms-sneha",
+      "member_id": "mem-sneha",
+      "plan_type": "3months",
+      "plan_label": "3 Months Practice Commitment",
+      "price": 4000,
+      "start_date": "2026-10-08",
+      "expiry_date": "2027-01-06",
+      "status": "active",
+      "created_at": "2026-10-08T08:00:00Z"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "bk-mvl65d6v",
+      "member_id": "mem-mvl657x7",
+      "member_name": "Pooja Test Sharma",
+      "member_phone": "9826047600",
+      "batch_id": "batch-2-therapy-pm",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-10-23",
+      "time_slot": "evening",
+      "timing_label": "05:00 PM – 06:00 PM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-10-23T16:13:00.295Z"
+    },
+    {
+      "id": "bk-mvl646s4",
+      "member_id": "mem-mvl644cc",
+      "member_name": "Pooja Test Sharma",
+      "member_phone": "9826044514",
+      "batch_id": "batch-2-therapy-pm",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-10-23",
+      "time_slot": "evening",
+      "timing_label": "05:00 PM – 06:00 PM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-10-23T16:12:05.334Z"
+    },
+    {
+      "id": "bk-amit-1",
+      "member_id": "mem-amit",
+      "member_name": "Amit Patidar",
+      "member_phone": "9826033333",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-10-23",
+      "time_slot": "morning",
+      "timing_label": "08:30 AM – 09:30 AM",
+      "booking_type": "member",
+      "status": "confirmed",
+      "created_at": "2026-10-21T08:00:00Z"
+    },
+    {
+      "id": "bk-sunita-1",
+      "member_id": "mem-sunita",
+      "member_name": "Sunita Khandelwal",
+      "member_phone": "9826022222",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-10-23",
+      "time_slot": "morning",
+      "timing_label": "08:30 AM – 09:30 AM",
+      "booking_type": "member",
+      "status": "confirmed",
+      "created_at": "2026-10-21T08:15:00Z"
+    },
+    {
+      "id": "bk-trial-rahul",
+      "member_id": "mem-rahul",
+      "member_name": "Rahul Mehra",
+      "member_phone": "9826011111",
+      "batch_id": "batch-2-therapy-pm",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-09-08",
+      "time_slot": "evening",
+      "timing_label": "05:00 PM – 06:00 PM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-09-08T06:00:00Z"
+    },
+    {
+      "id": "bk-trial-sunita",
+      "member_id": "mem-sunita",
+      "member_name": "Sunita Khandelwal",
+      "member_phone": "9826022222",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-09-26",
+      "time_slot": "morning",
+      "timing_label": "08:30 AM – 09:30 AM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-09-26T07:00:00Z"
+    },
+    {
+      "id": "bk-trial-amit",
+      "member_id": "mem-amit",
+      "member_name": "Amit Patidar",
+      "member_phone": "9826033333",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-10-02",
+      "time_slot": "morning",
+      "timing_label": "08:30 AM – 09:30 AM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-10-02T07:00:00Z"
+    },
+    {
+      "id": "bk-trial-anjali",
+      "member_id": "mem-anjali",
+      "member_name": "Anjali Verma",
+      "member_phone": "9876543210",
+      "batch_id": "batch-3-pcod-am",
+      "programme_type": "PCOD",
+      "batch_date": "2026-09-14",
+      "time_slot": "morning",
+      "timing_label": "09:00 AM – 10:00 AM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-09-14T07:00:00Z"
+    },
+    {
+      "id": "bk-trial-priya",
+      "member_id": "mem-priya",
+      "member_name": "Priya Nair",
+      "member_phone": "9826044444",
+      "batch_id": "batch-3-pcod-am",
+      "programme_type": "PCOD",
+      "batch_date": "2026-10-18",
+      "time_slot": "morning",
+      "timing_label": "09:00 AM – 10:00 AM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-10-18T10:00:00Z"
+    },
+    {
+      "id": "bk-trial-karan",
+      "member_id": "mem-karan",
+      "member_name": "Karan Malhotra",
+      "member_phone": "9826088888",
+      "batch_id": "batch-4-weightloss-am",
+      "programme_type": "Weight Loss",
+      "batch_date": "2026-10-19",
+      "time_slot": "morning",
+      "timing_label": "06:30 AM – 07:30 AM",
+      "booking_type": "trial",
+      "status": "confirmed",
+      "created_at": "2026-10-19T09:00:00Z"
+    }
+  ],
+  "checkins": [
+    {
+      "id": "chk-rahul-1",
+      "member_id": "mem-rahul",
+      "member_name": "Rahul Mehra",
+      "member_phone": "9826011111",
+      "batch_id": "batch-2-therapy-pm",
+      "programme_type": "Yoga Therapy",
+      "checkin_time": "2026-10-12T17:02:00Z"
+    },
+    {
+      "id": "chk-sunita-1",
+      "member_id": "mem-sunita",
+      "member_name": "Sunita Khandelwal",
+      "member_phone": "9826022222",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "checkin_time": "2026-10-21T08:28:00Z"
+    },
+    {
+      "id": "chk-amit-1",
+      "member_id": "mem-amit",
+      "member_name": "Amit Patidar",
+      "member_phone": "9826033333",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "checkin_time": "2026-10-22T08:25:00Z"
+    },
+    {
+      "id": "chk-vikram-1",
+      "member_id": "mem-vikram",
+      "member_name": "Vikramaditya Joshi",
+      "member_phone": "9826055555",
+      "batch_id": "batch-6-traditional-am",
+      "programme_type": "Traditional",
+      "checkin_time": "2026-10-22T07:28:00Z"
+    },
+    {
+      "id": "chk-neha-1",
+      "member_id": "mem-neha",
+      "member_name": "Neha Agrawal",
+      "member_phone": "9826066666",
+      "batch_id": "batch-4-weightloss-am",
+      "programme_type": "Weight Loss",
+      "checkin_time": "2026-10-14T06:31:00Z"
+    },
+    {
+      "id": "chk-sneha-1",
+      "member_id": "mem-sneha",
+      "member_name": "Sneha Tiwari",
+      "member_phone": "9826077777",
+      "batch_id": "batch-2-therapy-pm",
+      "programme_type": "Yoga Therapy",
+      "checkin_time": "2026-10-22T17:00:00Z"
+    }
+  ],
+  "waitlist": [
+    {
+      "id": "wl-sneha-1",
+      "member_id": "mem-sneha",
+      "member_name": "Sneha Tiwari",
+      "member_phone": "9826077777",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-10-23",
+      "timing_label": "08:30 AM – 09:30 AM",
+      "position": 1,
+      "notified": false,
+      "created_at": "2026-10-22T10:15:00Z"
+    },
+    {
+      "id": "wl-rahul-2",
+      "member_id": "mem-rahul",
+      "member_name": "Rahul Mehra",
+      "member_phone": "9826011111",
+      "batch_id": "batch-1-therapy-am",
+      "programme_type": "Yoga Therapy",
+      "batch_date": "2026-10-23",
+      "timing_label": "08:30 AM – 09:30 AM",
+      "position": 2,
+      "notified": false,
+      "created_at": "2026-10-22T11:30:00Z"
+    }
+  ]
+}

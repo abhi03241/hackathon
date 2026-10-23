@@ -1,0 +1,70 @@
+digraph SequenceWaitlist {
+    graph [
+        label="Sequence Diagram -- Waitlist Auto-Promotion on Cancellation"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=15
+        rankdir=LR
+        splines=ortho
+        nodesep=1.2
+        ranksep=0.5
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=10]
+    edge [fontname="Helvetica" fontsize=9]
+
+    node [shape=box style=filled fillcolor="#991B1B" fontcolor=white penwidth=2 width=1.8]
+    Staff    [label="Staff UI"]
+    API      [label="API Layer\n(/api/bookings/:id)"]
+    DB       [label="PostgreSQL\n(Transaction)"]
+    Notify   [label="WhatsApp\nLink Generator"]
+
+    node [shape=plaintext style="" fillcolor=white fontcolor=black]
+
+    w1 [label="1. Staff cancels a booking\nDELETE /api/bookings/:id"]
+    w2 [label="2. BEGIN TRANSACTION"]
+    w3 [label="3. UPDATE bookings SET status = 'cancelled'\nWHERE id = ?"]
+    w4 [label="4. UPDATE batches\nSET booked_count = booked_count - 1\nWHERE id = batch_id"]
+    w5 [label="5. SELECT * FROM waitlist\nWHERE batch_id = ? AND notified = false\nORDER BY position ASC\nLIMIT 1"]
+    w6 [label="6. Waitlist entry found?"]
+    w6a [label="6a. NO -> COMMIT\nReturn 200 (no waitlist)"]
+    w6b [label="6b. YES -> Auto-promote"]
+    w7 [label="7. INSERT INTO bookings\n{member_id: waitlist.member_id, batch_id, booking_type: 'member', status: 'confirmed'}"]
+    w8 [label="8. UPDATE batches SET booked_count = booked_count + 1"]
+    w9 [label="9. UPDATE waitlist SET notified = true\nWHERE id = waitlist.id"]
+    w10 [label="10. COMMIT"]
+    w11 [label="11. Generate WhatsApp deep-link for promoted member"]
+    w12 [label="12. Return 200\n{promoted_member: {name, phone, wa_link}}"]
+    w13 [label="13. Staff sees 'Spot given to [Name]'\nwith one-click WhatsApp notification button"]
+
+    {rank=same Staff w1}
+    {rank=same API w2}
+    {rank=same DB w3}
+    {rank=same DB w4}
+    {rank=same DB w5}
+    {rank=same DB w6}
+    {rank=same API w6a}
+    {rank=same DB w6b}
+    {rank=same DB w7}
+    {rank=same DB w8}
+    {rank=same DB w9}
+    {rank=same DB w10}
+    {rank=same Notify w11}
+    {rank=same API w12}
+    {rank=same Staff w13}
+
+    w1 -> w2
+    w2 -> w3
+    w3 -> w4
+    w4 -> w5
+    w5 -> w6
+    w6 -> w6a [label="empty waitlist" style=dashed]
+    w6 -> w6b [label="has waiting member" color=green]
+    w6b -> w7
+    w7 -> w8
+    w8 -> w9
+    w9 -> w10
+    w10 -> w11
+    w11 -> w12
+    w12 -> w13
+}

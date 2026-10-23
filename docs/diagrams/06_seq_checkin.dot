@@ -1,0 +1,63 @@
+digraph SequenceCheckin {
+    graph [
+        label="Sequence Diagram -- Staff Check-in Flow"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=15
+        rankdir=LR
+        splines=ortho
+        nodesep=1.2
+        ranksep=0.5
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=10]
+    edge [fontname="Helvetica" fontsize=9]
+
+    node [shape=box style=filled fillcolor="#4C1D95" fontcolor=white penwidth=2 width=1.8]
+    Staff  [label="Staff UI\n(/staff/checkin)"]
+    API    [label="API Layer\n(/api/checkin)"]
+    DB     [label="PostgreSQL"]
+
+    node [shape=plaintext style="" fillcolor=white fontcolor=black]
+
+    c1  [label="1. Staff enters 10-digit phone number"]
+    c2  [label="2. POST /api/checkin\n{phone, batch_id}"]
+    c3  [label="3. SELECT m.*, ms.expiry_date, ms.status\nFROM members m\nJOIN memberships ms ON ms.member_id = m.id\nWHERE m.phone = ?\nORDER BY ms.created_at DESC\nLIMIT 1"]
+    c4  [label="4. Member found?"]
+    c4a [label="4a. NO -> Return 404\n'Member not found. Ask them to register.'"]
+    c4b [label="4b. YES -> Check membership status"]
+    c5  [label="5. Is membership status = 'active'\nAND expiry_date >= TODAY?"]
+    c5a [label="5a. NO (expired) -> Return 403\n{allowed: false, error: EXPIRED,\nmessage: 'Membership expired. Renew now.'}"]
+    c5b [label="5b. YES -> Proceed"]
+    c6  [label="6. INSERT INTO checkins\n{member_id, batch_id, checkin_time: NOW()}"]
+    c7  [label="7. Return 200\n{allowed: true, name, expiry_date}"]
+    c8  [label="8. Display green check-in confirmation card"]
+    c9  [label="8. Display red denial card + 'Renew Now' CTA"]
+
+    {rank=same Staff c1}
+    {rank=same API c2}
+    {rank=same DB c3}
+    {rank=same DB c4}
+    {rank=same Staff c4a}
+    {rank=same DB c4b}
+    {rank=same DB c5}
+    {rank=same Staff c5a}
+    {rank=same DB c5b}
+    {rank=same DB c6}
+    {rank=same API c7}
+    {rank=same Staff c8}
+    {rank=same Staff c9}
+
+    c1 -> c2
+    c2 -> c3
+    c3 -> c4
+    c4 -> c4a [label="not found" style=dashed color=red]
+    c4 -> c4b [label="found" color=green]
+    c4b -> c5
+    c5 -> c5a [label="expired" style=dashed color=red]
+    c5 -> c5b [label="active" color=green]
+    c5b -> c6
+    c6 -> c7
+    c7 -> c8 [label="allowed=true" color=green]
+    c5a -> c9 [label="allowed=false" color=red]
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NG Yoga Studio - UML & Architecture Diagrams</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 40px; background: #0f172a; color: #f8fafc; }
+        h1 { border-bottom: 2px solid #334155; padding-bottom: 12px; }
+        .diagram-card { background: #1e293b; border-radius: 8px; padding: 20px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+        .diagram-card h2 { margin-top: 0; color: #38bdf8; font-size: 1.25rem; }
+        .diagram-card p { color: #94a3b8; font-size: 0.9rem; }
+        img { max-width: 100%; height: auto; background: white; border-radius: 4px; border: 1px solid #475569; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>NG Yoga Studio — Complete System & Architecture Diagrams (14 Total)</h1>
+    <p>All diagrams generated from Graphviz DOT source code.</p>
+
+    <div class="diagram-card">
+        <h2>01. Use Case Diagram</h2>
+        <p>Actors, boundary, core and retention use cases.</p>
+        <img src="01_use_case.png" alt="Use Case Diagram">
+    </div>
+
+    <div class="diagram-card">
+        <h2>02. Domain Class Diagram</h2>
+        <p>Entities, typed methods, enumerations, associations.</p>
+        <img src="02_class_diagram.png" alt="Domain Class Diagram">
+    </div>
+
+    <div class="diagram-card">
+        <h2>03. Entity Relationship Diagram (ERD)</h2>
+        <p>PostgreSQL tables, PKs, FKs, cardinalities, scale hooks.</p>
+        <img src="03_er_diagram.png" alt="ER Diagram">
+    </div>
+
+    <div class="diagram-card">
+        <h2>04. Sequence Diagram: Member Onboarding</h2>
+        <p>Client/server validation, DB persistence, and routing evaluation.</p>
+        <img src="04_seq_onboarding.png" alt="Sequence Onboarding">
+    </div>
+
+    <div class="diagram-card">
+        <h2>05. Sequence Diagram: Batch Booking (Concurrency-Safe)</h2>
+        <p>Row-level lock, capacity enforcement, trial checks, and realtime push.</p>
+        <img src="05_seq_booking.png" alt="Sequence Booking">
+    </div>
+
+    <div class="diagram-card">
+        <h2>06. Sequence Diagram: Staff Check-In</h2>
+        <p>Phone lookup, membership expiry rules (B4), checkin recording.</p>
+        <img src="06_seq_checkin.png" alt="Sequence Checkin">
+    </div>
+
+    <div class="diagram-card">
+        <h2>07. Sequence Diagram: Waitlist Auto-Promotion</h2>
+        <p>Cancellation chain, auto-promoted booking, and WhatsApp notify trigger.</p>
+        <img src="07_seq_waitlist.png" alt="Sequence Waitlist">
+    </div>
+
+    <div class="diagram-card">
+        <h2>08. Activity Diagram: Programme Routing Engine (R1–R6)</h2>
+        <p>Sequential rule evaluation, pregnancy hard block, and condition priorities.</p>
+        <img src="08_activity_routing.png" alt="Activity Routing">
+    </div>
+
+    <div class="diagram-card">
+        <h2>09. State Machine: Membership Lifecycle</h2>
+        <p>From trial to active, expiring, expired, or renewed.</p>
+        <img src="09_state_membership.png" alt="State Membership">
+    </div>
+
+    <div class="diagram-card">
+        <h2>10. State Machine: Booking Lifecycle</h2>
+        <p>Requested, validated, confirmed, waitlisted, attended, cancelled.</p>
+        <img src="10_state_booking.png" alt="State Booking">
+    </div>
+
+    <div class="diagram-card">
+        <h2>11. Component Diagram: MVP System Architecture</h2>
+        <p>Frontend, API routes, service layer, repositories, Supabase services.</p>
+        <img src="11_component.png" alt="Component Diagram">
+    </div>
+
+    <div class="diagram-card">
+        <h2>12. Deployment Diagram: Topology & Scalability Bridge</h2>
+        <p>Vercel Edge, Supabase Mumbai, and Redis/BullMQ future scale path.</p>
+        <img src="12_deployment.png" alt="Deployment Diagram">
+    </div>
+
+    <div class="diagram-card">
+        <h2>13. Scalability Architecture: Phase 1 to Phase 3</h2>
+        <p>Single studio MVP -> multi-branch -> enterprise franchise SaaS.</p>
+        <img src="13_scalability.png" alt="Scalability Architecture">
+    </div>
+
+    <div class="diagram-card">
+        <h2>14. Crisis Adaptation Architecture: Countering Generic AI Apps</h2>
+        <p>Multi-signal retention triage, tailored WhatsApp re-engagement, and human-led safety moat.</p>
+        <img src="14_crisis_adaptation.png" alt="Crisis Adaptation Architecture">
+    </div>
+</body>
+</html>

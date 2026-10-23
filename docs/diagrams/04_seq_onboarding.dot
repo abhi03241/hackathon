@@ -1,0 +1,72 @@
+digraph SequenceMemberOnboarding {
+    graph [
+        label="Sequence Diagram -- Member Onboarding Flow"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=15
+        rankdir=LR
+        splines=ortho
+        nodesep=1.2
+        ranksep=0.6
+        bgcolor="white"
+    ]
+    node  [fontname="Helvetica" fontsize=10]
+    edge  [fontname="Helvetica" fontsize=9]
+
+    // Lifeline headers
+    node [shape=box style=filled fillcolor="#1D4ED8" fontcolor=white penwidth=2 width=1.8]
+    Browser   [label="Browser\n(Member UI)"]
+    APILayer  [label="API Layer\n(/api/members)"]
+    RoutingSvc [label="Routing\nService"]
+    DB        [label="Database\n(PostgreSQL)"]
+    Validator [label="Zod\nValidator"]
+
+    // Step nodes (messages)
+    node [shape=plaintext style="" fillcolor=white fontcolor=black penwidth=0]
+
+    s1  [label="1. Fill Health Intake Form"]
+    s2  [label="2. Client-side Zod validation"]
+    s3  [label="3. POST /api/members\n{name, phone, age, level, goal, conditions}"]
+    s4  [label="4. Server-side Zod validation"]
+    s5  [label="5. Check phone uniqueness\nSELECT * FROM members WHERE phone = ?"]
+    s6  [label="6. Phone exists? Return existing member_id"]
+    s7  [label="7. INSERT INTO members (...)"]
+    s8  [label="8. INSERT INTO health_profiles (...)"]
+    s9  [label="9. routeEngine.evaluate({conditions, goal, level})"]
+    s10 [label="10. Apply R1 -> R6 rules sequentially"]
+    s11 [label="11. Return {recommended, allowed[], blocked[], hardBlock, message}"]
+    s12 [label="12. Return 201 {member_id, routing}"]
+    s13 [label="13. Render Programme Cards\n(recommended=highlighted, blocked=greyed)"]
+    s14 [label="14. Display disclaimer:\n'This is not medical advice'"]
+
+    // Layout: rank forces vertical ordering
+    {rank=same Browser s1}
+    {rank=same Browser s2}
+    {rank=same APILayer s3}
+    {rank=same Validator s4}
+    {rank=same DB s5}
+    {rank=same DB s6}
+    {rank=same DB s7}
+    {rank=same DB s8}
+    {rank=same RoutingSvc s9}
+    {rank=same RoutingSvc s10}
+    {rank=same APILayer s11}
+    {rank=same Browser s12}
+    {rank=same Browser s13}
+    {rank=same Browser s14}
+
+    // Flow edges
+    s1 -> s2 [label="Member action"]
+    s2 -> s3 [label="Valid -> submit"]
+    s3 -> s4 [label="HTTP POST"]
+    s4 -> s5 [label="Pass -> query DB"]
+    s5 -> s6 [label="Conditional"]
+    s6 -> s7 [label="New member path"]
+    s7 -> s8 [label="After member created"]
+    s8 -> s9 [label="Trigger routing"]
+    s9 -> s10 [label="Evaluate rules"]
+    s10 -> s11 [label="Return result"]
+    s11 -> s12 [label="Aggregate response"]
+    s12 -> s13 [label="Render UI"]
+    s13 -> s14 [label="Always shown"]
+}

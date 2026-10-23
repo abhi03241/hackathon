@@ -1,0 +1,101 @@
+digraph DeploymentDiagram {
+    graph [
+        label="Deployment Diagram -- MVP + Scale Path"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=16
+        rankdir=TB
+        splines=ortho
+        pad=0.8
+        nodesep=1.0
+        ranksep=1.2
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=10]
+    edge [fontname="Helvetica" fontsize=9]
+
+    // ---- USER DEVICES ----
+    subgraph cluster_clients {
+        label="Client Devices"
+        style=rounded
+        color="#6B7280"
+        bgcolor="#F9FAFB"
+
+        node [shape=box style=filled fillcolor="#F3F4F6" color="#6B7280" penwidth=1.5]
+        Desktop [label="Desktop Browser\nChrome / Safari / Firefox\nMember & Staff & Owner"]
+        Mobile  [label="Mobile Browser\nAndroid / iOS\nMin width: 375px"]
+    }
+
+    // ---- VERCEL EDGE ----
+    subgraph cluster_vercel {
+        label="Vercel Edge Network (CDN + Serverless)"
+        style=rounded
+        color="#1D4ED8"
+        penwidth=2
+        fontcolor="#1D4ED8"
+        bgcolor="#EFF6FF"
+
+        node [shape=box style=filled fillcolor="#DBEAFE" color="#1D4ED8" penwidth=1.5]
+        EdgeCDN  [label="Edge CDN\nStatic assets\nNext.js RSC HTML"]
+        Serverless [label="Serverless Functions\nNext.js API Routes\nNode.js 20 runtime\nAuto-scaled"]
+    }
+
+    // ---- SUPABASE (AWS ap-south-1) ----
+    subgraph cluster_supabase {
+        label="Supabase Platform (AWS ap-south-1 — Mumbai)"
+        style=rounded
+        color="#065F46"
+        penwidth=2
+        fontcolor="#065F46"
+        bgcolor="#F0FDF4"
+
+        node [shape=cylinder style=filled fillcolor="#D1FAE5" color="#065F46" penwidth=1.5]
+        PG15 [label="PostgreSQL 15\nPrimary (read+write)\n8 tables + views\nRow Level Security"]
+
+        node [shape=box style=filled fillcolor="#D1FAE5" color="#065F46"]
+        SupaAuth  [label="Auth Service\nJWT tokens\nSession management"]
+        SupaRT    [label="Realtime Service\nWebSocket server\nBatch seat broadcasts"]
+        PgBounce  [label="PgBouncer\nConnection pooling\nMax 200 connections"]
+        Storage   [label="Storage Service\n(future: profile photos)"]
+    }
+
+    // ---- SCALE PATH (dashed) ----
+    subgraph cluster_scale {
+        label="Scale Path (not in MVP -- future)"
+        style="rounded,dashed"
+        color="#9CA3AF"
+        fontcolor="#9CA3AF"
+        bgcolor="#FAFAFA"
+
+        node [shape=box style="filled,dashed" fillcolor="#F3F4F6" color="#9CA3AF"]
+        Redis   [label="Redis\nBatch seat cache\nWaitlist queue locks"]
+        BullMQ  [label="BullMQ\nAsync job queue\n(waitlist promotions,\nrenewal crons)"]
+        ReadReplica [label="PG Read Replica\nDashboard queries\nAnalytics reports"]
+        WABAPI  [label="WhatsApp Business API\nProgrammatic messaging\n(replaces wa.me links)"]
+        MultiTenant [label="Multi-Tenant Layer\ntenant_id isolation\nor schema-per-tenant"]
+    }
+
+    // Client to Vercel
+    Desktop -> EdgeCDN   [label="HTTPS" color="#1D4ED8"]
+    Mobile  -> EdgeCDN   [label="HTTPS" color="#1D4ED8"]
+    Desktop -> Serverless [label="API calls\nfetch()" color="#1D4ED8"]
+    Mobile  -> Serverless [label="API calls" color="#1D4ED8"]
+
+    // Vercel to Supabase
+    Serverless -> PgBounce [label="SQL via\nSupabase JS SDK" color="#065F46"]
+    Serverless -> SupaAuth [label="Token verify" color="#065F46"]
+    EdgeCDN    -> SupaRT   [label="WS subscribe\n(batch updates)" color="#065F46"]
+
+    // Supabase internals
+    PgBounce -> PG15
+    SupaAuth -> PG15
+    SupaRT   -> PG15
+    PG15     -> Storage
+
+    // Future
+    Serverless -> Redis     [style=dashed color="#9CA3AF" label="future"]
+    Redis      -> BullMQ    [style=dashed color="#9CA3AF"]
+    PG15       -> ReadReplica [style=dashed color="#9CA3AF" label="replication"]
+    Serverless -> WABAPI    [style=dashed color="#9CA3AF" label="future"]
+    PG15       -> MultiTenant [style=dashed color="#9CA3AF" label="tenant_id column\nalready present"]
+}

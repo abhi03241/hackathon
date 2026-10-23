@@ -1,0 +1,85 @@
+digraph ScalabilityLayers {
+    graph [
+        label="Scalability Architecture -- Small to Large"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=16
+        rankdir=LR
+        splines=ortho
+        pad=0.8
+        nodesep=0.7
+        ranksep=1.5
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=10]
+    edge [fontname="Helvetica" fontsize=9]
+
+    // Small Scale
+    subgraph cluster_small {
+        label="Phase 1: Small Scale (MVP)\n1 studio, 200 members"
+        style=rounded
+        color="#1D4ED8"
+        penwidth=2
+        fontcolor="#1D4ED8"
+        bgcolor="#EFF6FF"
+
+        node [shape=box style=filled fillcolor="#DBEAFE" color="#1D4ED8"]
+        S_FE  [label="Next.js Full-Stack\n(FE + API together)"]
+        S_DB  [label="Supabase Free Tier\nPostgreSQL\n(Single node)"]
+        S_WA  [label="wa.me Deep Links"]
+        S_Auth [label="Supabase Auth\n(email/password)"]
+    }
+
+    // Medium Scale
+    subgraph cluster_medium {
+        label="Phase 2: Medium Scale\n5 branches, 5000 members"
+        style=rounded
+        color="#065F46"
+        penwidth=2
+        fontcolor="#065F46"
+        bgcolor="#F0FDF4"
+
+        node [shape=box style=filled fillcolor="#D1FAE5" color="#065F46"]
+        M_FE   [label="Next.js Frontend\n(decoupled)"]
+        M_API  [label="NestJS API\n(separate service)"]
+        M_DB   [label="Supabase Pro\n+ Read Replica"]
+        M_Cache [label="Redis\n(seat cache + locks)"]
+        M_Jobs [label="BullMQ\n(async jobs)"]
+        M_WA2  [label="WhatsApp\nBusiness API"]
+    }
+
+    // Large Scale
+    subgraph cluster_large {
+        label="Phase 3: Large Scale (SaaS)\n50+ studios, 100k members"
+        style=rounded
+        color="#7C3AED"
+        penwidth=2
+        fontcolor="#7C3AED"
+        bgcolor="#F5F3FF"
+
+        node [shape=box style=filled fillcolor="#EDE9FE" color="#7C3AED"]
+        L_FE    [label="Next.js + React Native\n(web + mobile)"]
+        L_GW    [label="API Gateway\n(rate limit, auth)"]
+        L_MS1   [label="Members\nMicroservice"]
+        L_MS2   [label="Bookings\nMicroservice"]
+        L_MS3   [label="Memberships\nMicroservice"]
+        L_DB    [label="PostgreSQL\n(schema-per-tenant)\nAWS RDS"]
+        L_Redis [label="Redis Cluster"]
+        L_MQ    [label="Message Queue\n(RabbitMQ / SQS)"]
+        L_ML    [label="ML Churn Predictor\n(XGBoost)"]
+        L_Ana   [label="Analytics Pipeline\nBigQuery / Redshift"]
+    }
+
+    // Shared components label
+    node [shape=note style=filled fillcolor="#FFFBEB" color="#D97706" fontsize=9]
+    SharedNote [label="Portable across all phases:\n- lib/routing.ts (pure function)\n- Zod schemas\n- tenant_id column (dormant in Phase 1)\n- PostgreSQL (same DB engine)"]
+
+    // Phase transitions
+    S_FE -> M_FE   [label="Decouple FE/API" style=dashed color="#065F46" penwidth=2]
+    S_DB -> M_DB   [label="Upgrade tier" style=dashed color="#065F46"]
+    S_WA -> M_WA2  [label="Switch to API" style=dashed color="#065F46"]
+    M_API -> L_GW  [label="Add gateway" style=dashed color="#7C3AED" penwidth=2]
+    M_DB  -> L_DB  [label="Multi-tenant\nisolation" style=dashed color="#7C3AED"]
+    M_FE  -> L_FE  [label="Add mobile" style=dashed color="#7C3AED"]
+    M_Jobs -> L_MQ [style=dashed color="#7C3AED"]
+}

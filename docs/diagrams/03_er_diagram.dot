@@ -1,0 +1,147 @@
+digraph ERDiagram {
+    graph [
+        label="NG Yoga Studio -- Entity Relationship Diagram"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=16
+        rankdir=LR
+        splines=ortho
+        pad=0.8
+        nodesep=1.0
+        ranksep=1.5
+        bgcolor="white"
+    ]
+    node [fontname="Courier" fontsize=9 shape=record style=filled]
+    edge [fontname="Helvetica" fontsize=9 dir=none]
+
+    // Entities
+
+    members [fillcolor="#DBEAFE" color="#1D4ED8" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#1D4ED8" COLSPAN="3"><FONT COLOR="white"><B>members</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>tenant_id</TD><TD>UUID [scale hook]</TD></TR>
+        <TR><TD>UK</TD><TD>phone</TD><TD>CHAR(10) NOT NULL</TD></TR>
+        <TR><TD></TD><TD>name</TD><TD>TEXT NOT NULL</TD></TR>
+        <TR><TD></TD><TD>age</TD><TD>INT CHECK(10..80)</TD></TR>
+        <TR><TD></TD><TD>experience_level</TD><TD>TEXT ENUM</TD></TR>
+        <TR><TD></TD><TD>created_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        <TR><TD></TD><TD>updated_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        </TABLE>
+    >]
+
+    health_profiles [fillcolor="#DBEAFE" color="#1D4ED8" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#1D4ED8" COLSPAN="3"><FONT COLOR="white"><B>health_profiles</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>member_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>conditions</TD><TD>TEXT[] NOT NULL</TD></TR>
+        <TR><TD></TD><TD>main_goal</TD><TD>TEXT ENUM</TD></TR>
+        <TR><TD></TD><TD>consent_given</TD><TD>BOOLEAN DEFAULT false</TD></TR>
+        <TR><TD></TD><TD>created_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        <TR><TD></TD><TD>updated_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        </TABLE>
+    >]
+
+    programmes [fillcolor="#D1FAE5" color="#065F46" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#065F46" COLSPAN="3"><FONT COLOR="white"><B>programmes</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>UK</TD><TD>name</TD><TD>TEXT NOT NULL</TD></TR>
+        <TR><TD></TD><TD>type</TD><TD>TEXT ENUM</TD></TR>
+        <TR><TD></TD><TD>description</TD><TD>TEXT</TD></TR>
+        <TR><TD></TD><TD>is_active</TD><TD>BOOLEAN DEFAULT true</TD></TR>
+        </TABLE>
+    >]
+
+    batches [fillcolor="#D1FAE5" color="#065F46" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#065F46" COLSPAN="3"><FONT COLOR="white"><B>batches</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>programme_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>tenant_id</TD><TD>UUID [scale hook]</TD></TR>
+        <TR><TD></TD><TD>time_slot</TD><TD>TEXT ENUM</TD></TR>
+        <TR><TD></TD><TD>batch_date</TD><TD>DATE NOT NULL</TD></TR>
+        <TR><TD></TD><TD>capacity</TD><TD>INT DEFAULT 15</TD></TR>
+        <TR><TD></TD><TD>booked_count</TD><TD>INT DEFAULT 0</TD></TR>
+        <TR><TD></TD><TD>instructor</TD><TD>TEXT</TD></TR>
+        <TR><TD></TD><TD>is_active</TD><TD>BOOLEAN DEFAULT true</TD></TR>
+        <TR><TD></TD><TD>created_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        </TABLE>
+    >]
+
+    memberships [fillcolor="#FEF3C7" color="#92400E" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#92400E" COLSPAN="3"><FONT COLOR="white"><B>memberships</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>member_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>plan_type</TD><TD>TEXT ENUM</TD></TR>
+        <TR><TD></TD><TD>price</TD><TD>INT NOT NULL</TD></TR>
+        <TR><TD></TD><TD>start_date</TD><TD>DATE NOT NULL</TD></TR>
+        <TR><TD></TD><TD>expiry_date</TD><TD>DATE NOT NULL</TD></TR>
+        <TR><TD></TD><TD>status</TD><TD>TEXT ENUM DEFAULT active</TD></TR>
+        <TR><TD></TD><TD>created_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        </TABLE>
+    >]
+
+    bookings [fillcolor="#FCE7F3" color="#9D174D" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#9D174D" COLSPAN="3"><FONT COLOR="white"><B>bookings</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>member_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>batch_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>booking_type</TD><TD>TEXT ENUM</TD></TR>
+        <TR><TD></TD><TD>status</TD><TD>TEXT ENUM DEFAULT confirmed</TD></TR>
+        <TR><TD></TD><TD>created_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        <TR><TD>UK</TD><TD>(member_id, batch_id)</TD><TD>UNIQUE</TD></TR>
+        </TABLE>
+    >]
+
+    checkins [fillcolor="#EDE9FE" color="#4C1D95" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#4C1D95" COLSPAN="3"><FONT COLOR="white"><B>checkins</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>member_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>batch_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>checkin_time</TD><TD>TIMESTAMPTZ DEFAULT NOW()</TD></TR>
+        </TABLE>
+    >]
+
+    waitlist [fillcolor="#FEE2E2" color="#991B1B" penwidth=2 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#991B1B" COLSPAN="3"><FONT COLOR="white"><B>waitlist</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>member_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD>FK</TD><TD>batch_id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>position</TD><TD>INT NOT NULL</TD></TR>
+        <TR><TD></TD><TD>notified</TD><TD>BOOLEAN DEFAULT false</TD></TR>
+        <TR><TD></TD><TD>created_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        <TR><TD>UK</TD><TD>(member_id, batch_id)</TD><TD>UNIQUE</TD></TR>
+        </TABLE>
+    >]
+
+    // Scale hook table (not active in MVP)
+    tenants [fillcolor="#F3F4F6" color="#6B7280" penwidth=1 style="filled,dashed" label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#6B7280" COLSPAN="3"><FONT COLOR="white"><B>tenants [future]</B></FONT></TD></TR>
+        <TR><TD><B>PK</B></TD><TD>id</TD><TD>UUID NOT NULL</TD></TR>
+        <TR><TD></TD><TD>name</TD><TD>TEXT NOT NULL</TD></TR>
+        <TR><TD></TD><TD>city</TD><TD>TEXT</TD></TR>
+        <TR><TD></TD><TD>plan_tier</TD><TD>TEXT ENUM</TD></TR>
+        <TR><TD></TD><TD>created_at</TD><TD>TIMESTAMPTZ</TD></TR>
+        </TABLE>
+    >]
+
+    // Relationships with cardinality labels
+    members -> health_profiles [label="  1:1  " headlabel="1" taillabel="1" arrowhead=none arrowtail=none]
+    members -> memberships      [label="  1:N  " headlabel="N" taillabel="1"]
+    members -> bookings         [label="  1:N  " headlabel="N" taillabel="1"]
+    members -> checkins         [label="  1:N  " headlabel="N" taillabel="1"]
+    members -> waitlist         [label="  1:N  " headlabel="N" taillabel="1"]
+    programmes -> batches       [label="  1:N  " headlabel="N" taillabel="1"]
+    batches -> bookings         [label="  1:N  " headlabel="N" taillabel="1"]
+    batches -> checkins         [label="  1:N  " headlabel="N" taillabel="1"]
+    batches -> waitlist         [label="  1:N  " headlabel="N" taillabel="1"]
+    tenants -> members          [style=dashed color="#9CA3AF" label="  future  "]
+    tenants -> batches          [style=dashed color="#9CA3AF"]
+}

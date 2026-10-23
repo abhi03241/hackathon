@@ -1,0 +1,59 @@
+digraph StateMembershipLifecycle {
+    graph [
+        label="State Machine -- Membership Lifecycle"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=15
+        rankdir=LR
+        splines=curved
+        nodesep=1.2
+        ranksep=1.5
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=11]
+    edge [fontname="Helvetica" fontsize=10]
+
+    // Pseudo-start state
+    START [shape=circle style=filled fillcolor=black width=0.35 label=""]
+
+    // States
+    node [shape=box style="rounded,filled" penwidth=2]
+
+    NO_MEMBERSHIP [fillcolor="#F3F4F6" color="#6B7280" label="NO MEMBERSHIP\n[entry state]"]
+    TRIAL_BOOKED  [fillcolor="#DBEAFE" color="#1D4ED8" label="TRIAL BOOKED\nbooking_type = trial\nstatus = confirmed"]
+    ACTIVE        [fillcolor="#D1FAE5" color="#065F46" label="ACTIVE\nstatus = active\nexpiry_date > TODAY"]
+    EXPIRING_SOON [fillcolor="#FEF3C7" color="#D97706" label="EXPIRING SOON\nstatus = active\nexpiry_date in 0-7 days"]
+    EXPIRED       [fillcolor="#FEE2E2" color="#991B1B" label="EXPIRED\nstatus = expired\nexpiry_date < TODAY"]
+    CANCELLED     [fillcolor="#F3F4F6" color="#6B7280" label="CANCELLED\nstatus = cancelled"]
+
+    // End state
+    END [shape=doublecircle style=filled fillcolor=black width=0.35 label=""]
+
+    // Transitions
+    START -> NO_MEMBERSHIP [label="member created"]
+
+    NO_MEMBERSHIP -> TRIAL_BOOKED [label="books free trial\n[B2: first-time only]"]
+    NO_MEMBERSHIP -> ACTIVE       [label="purchases plan\n[B3: price + expiry calculated]"]
+
+    TRIAL_BOOKED -> ACTIVE   [label="purchases membership\n[conversion event]"]
+    TRIAL_BOOKED -> NO_MEMBERSHIP [label="trial expires\n(no purchase)" style=dashed color="#9CA3AF"]
+
+    ACTIVE -> EXPIRING_SOON  [label="expiry_date - TODAY <= 7\n[dashboard alert triggered]" color="#D97706"]
+    ACTIVE -> CANCELLED      [label="owner/staff cancels"]
+
+    EXPIRING_SOON -> ACTIVE       [label="renews plan\n[new row in memberships]" color="#065F46"]
+    EXPIRING_SOON -> EXPIRED      [label="expiry_date < TODAY\n[cron / view evaluation]" color=red]
+
+    EXPIRED -> ACTIVE   [label="renews plan\n[new row in memberships]" color="#065F46"]
+    EXPIRED -> END      [label="member leaves\n(no renewal)" style=dashed color="#9CA3AF"]
+
+    CANCELLED -> END [label="permanent" style=dashed color="#9CA3AF"]
+
+    // Guard notes
+    node [shape=note style=filled fillcolor="#FFFBEB" color="#D97706" fontsize=9]
+    B4note [label="B4: Check-in denied\nwhen status = EXPIRED"]
+    B2note [label="B2: Only one trial\nper phone number"]
+
+    EXPIRED -> B4note [style=dashed arrowhead=none color="#D97706"]
+    TRIAL_BOOKED -> B2note [style=dashed arrowhead=none color="#D97706"]
+}

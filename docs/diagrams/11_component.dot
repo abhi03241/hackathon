@@ -1,0 +1,156 @@
+digraph ComponentDiagram {
+    graph [
+        label="Component Diagram -- MVP System Architecture"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=16
+        rankdir=TB
+        splines=ortho
+        pad=0.8
+        nodesep=0.9
+        ranksep=1.2
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=10]
+    edge [fontname="Helvetica" fontsize=9]
+
+    // -------- FRONTEND CLUSTER --------
+    subgraph cluster_frontend {
+        label="Frontend Layer (Next.js 14 App Router)"
+        style=rounded
+        color="#1D4ED8"
+        penwidth=2
+        fontcolor="#1D4ED8"
+        fontsize=12
+        bgcolor="#F0F9FF"
+
+        node [shape=box style=filled fillcolor="#DBEAFE" color="#1D4ED8" penwidth=1.5]
+        MemberPages  [label="Member Pages\n/join\n/batches\n/membership"]
+        StaffPages   [label="Staff Pages\n/staff/checkin\n/staff/batches\n[Auth Guard]"]
+        OwnerPages   [label="Owner Pages\n/owner/dashboard\n/owner/analytics\n[Auth Guard + Role]"]
+
+        node [shape=box style="filled,dashed" fillcolor="#EFF6FF" color="#3B82F6"]
+        RHF    [label="React Hook Form\n+ Zod Client Schemas"]
+        Zustand [label="Zustand Store\n(session + member state)"]
+        RQ     [label="React Query\n(server state cache)"]
+        Realtime [label="Supabase Realtime\n(batch seat subscriptions)"]
+    }
+
+    // -------- API LAYER CLUSTER --------
+    subgraph cluster_api {
+        label="API Layer (Next.js API Routes)"
+        style=rounded
+        color="#065F46"
+        penwidth=2
+        fontcolor="#065F46"
+        fontsize=12
+        bgcolor="#F0FDF4"
+
+        node [shape=box style=filled fillcolor="#D1FAE5" color="#065F46" penwidth=1.5]
+        MembersAPI     [label="/api/members\nPOST (create + route)\nGET /:phone"]
+        BookingsAPI    [label="/api/bookings\nPOST (create)\nDELETE /:id (cancel)"]
+        MembershipsAPI [label="/api/memberships\nPOST (create)\nGET /:memberId"]
+        CheckinAPI     [label="/api/checkin\nPOST (record)"]
+        DashboardAPI   [label="/api/dashboard/*\nexpiring / inactive / conversions"]
+        WaitlistAPI    [label="/api/waitlist\nPOST (join)"]
+    }
+
+    // -------- SERVICE LAYER CLUSTER --------
+    subgraph cluster_services {
+        label="Service / Business Logic Layer"
+        style=rounded
+        color="#7C3AED"
+        penwidth=2
+        fontcolor="#7C3AED"
+        fontsize=12
+        bgcolor="#F5F3FF"
+
+        node [shape=box style=filled fillcolor="#EDE9FE" color="#7C3AED" penwidth=1.5]
+        RoutingEngine  [label="Routing Engine\nlib/routing.ts\nPure function — no I/O\nevaluate(R1..R6)"]
+        WhatsAppSvc    [label="WhatsApp Service\nlib/whatsapp.ts\nMessage template generator\nwa.me deep-link builder"]
+        ZodSchemas     [label="Zod Schemas\nlib/schemas.ts\nShared client + server\nvalidation contracts"]
+
+        node [shape=box style=filled fillcolor="#EDE9FE" color="#7C3AED" penwidth=1.5]
+        MembersRepo    [label="Members Repository\nlib/db/members.ts"]
+        BookingsRepo   [label="Bookings Repository\nlib/db/bookings.ts"]
+        MembershipsRepo [label="Memberships Repository\nlib/db/memberships.ts"]
+        CheckinsRepo   [label="Checkins Repository\nlib/db/checkins.ts"]
+    }
+
+    // -------- DATABASE CLUSTER --------
+    subgraph cluster_db {
+        label="Data Layer (Supabase — PostgreSQL 15, AWS ap-south-1)"
+        style=rounded
+        color="#92400E"
+        penwidth=2
+        fontcolor="#92400E"
+        fontsize=12
+        bgcolor="#FFFBEB"
+
+        node [shape=cylinder style=filled fillcolor="#FEF3C7" color="#92400E" penwidth=1.5]
+        PG [label="PostgreSQL 15\nmembers\nhealth_profiles\nprogrammes\nbatches\nmemberships\nbookings\ncheckins\nwaitlist"]
+
+        node [shape=box style=filled fillcolor="#FEF3C7" color="#92400E"]
+        Auth     [label="Supabase Auth\n(Staff + Owner login)"]
+        RLS      [label="Row Level Security\n(per-table policies)"]
+        PgBouncer [label="PgBouncer\n(connection pooling)"]
+        Views    [label="DB Views\nexpiring_memberships\ninactive_members"]
+    }
+
+    // -------- EXTERNAL CLUSTER --------
+    subgraph cluster_external {
+        label="External Services"
+        style=rounded
+        color="#6B7280"
+        penwidth=1
+        fontcolor="#6B7280"
+        fontsize=12
+        bgcolor="#F9FAFB"
+
+        node [shape=box style=filled fillcolor="#F3F4F6" color="#6B7280"]
+        Vercel    [label="Vercel Edge Network\n(deployment + CDN)"]
+        WADeep    [label="WhatsApp Deep Links\nwa.me/91{phone}\n(zero API cost for MVP)"]
+    }
+
+    // -------- EDGES --------
+    // Frontend -> API
+    MemberPages -> MembersAPI  [label="fetch" color="#1D4ED8"]
+    MemberPages -> BookingsAPI [label="fetch"]
+    MemberPages -> MembershipsAPI [label="fetch"]
+    StaffPages  -> CheckinAPI  [label="fetch" color="#1D4ED8"]
+    StaffPages  -> BookingsAPI [label="fetch"]
+    OwnerPages  -> DashboardAPI [label="fetch" color="#1D4ED8"]
+
+    // Forms + State
+    RHF -> MembersAPI    [style=dashed label="validates then calls"]
+    Realtime -> PG        [style=dashed label="subscribes to batches table"]
+
+    // API -> Services
+    MembersAPI -> RoutingEngine   [label="evaluate()" color="#065F46"]
+    MembersAPI -> ZodSchemas      [label="validate"]
+    BookingsAPI -> ZodSchemas     [label="validate"]
+    DashboardAPI -> WhatsAppSvc   [label="generate link"]
+
+    // API -> Repos
+    MembersAPI -> MembersRepo
+    BookingsAPI -> BookingsRepo
+    MembershipsAPI -> MembershipsRepo
+    CheckinAPI -> CheckinsRepo
+
+    // Repos -> DB
+    MembersRepo -> PG
+    BookingsRepo -> PG
+    MembershipsRepo -> PG
+    CheckinsRepo -> PG
+    DashboardAPI -> Views [label="SELECT"]
+    Views -> PG
+
+    // DB internals
+    PG -> RLS      [style=dashed]
+    PG -> PgBouncer [style=dashed]
+    Auth -> PG     [style=dashed]
+
+    // External
+    Vercel -> MemberPages  [style=dashed label="serves"]
+    OwnerPages -> WADeep   [label="opens link"]
+}

@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  fastapi-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: ng-yoga-fastapi
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./ng_yoga_studio.db
+      - JWT_SECRET=ng-yoga-studio-indore-secret-key-2026
+    volumes:
+      - ./backend:/app/backend

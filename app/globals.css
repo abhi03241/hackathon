@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-mono: 'JetBrains Mono', monospace, ui-monospace, SFMono-Regular;
+
+    /* Catppuccin Latte Clean Palette */
+    --ctp-base: #eff1f5;
+    --ctp-mantle: #e6e9ef;
+    --ctp-crust: #dce0e8;
+    --ctp-surface0: #ccd0da;
+    --ctp-surface1: #bcc0cc;
+    --ctp-surface2: #acb0be;
+    
+    --ctp-text: #4c4f69;
+    --ctp-subtext1: #5c5f77;
+    --ctp-subtext0: #6c6f85;
+    --ctp-overlay0: #9ca0b0;
+
+    --ctp-blue: #1e66f5;
+    --ctp-lavender: #7287fd;
+    --ctp-sapphire: #209fb5;
+    --ctp-sky: #04a5e5;
+    --ctp-teal: #179299;
+    --ctp-green: #40a02b;
+    --ctp-yellow: #df8e1d;
+    --ctp-peach: #fe640b;
+    --ctp-maroon: #e64553;
+    --ctp-red: #d20f39;
+    --ctp-mauve: #8839ef;
+    --ctp-pink: #ea76cb;
+    --ctp-flamingo: #dd7878;
+    --ctp-rosewater: #dc8a78;
+  }
+
+  body {
+    font-family: var(--font-mono);
+    background-color: var(--ctp-base);
+    color: var(--ctp-text);
+    min-height: 100vh;
+  }
+
+  * {
+    font-family: var(--font-mono) !important;
+  }
+}
+
+.font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+.font-sans, .font-display {
+  font-family: var(--font-mono) !important;
+}
+
+/* Crisp Clean Panel - No glow, very plain */
+.plain-card {
+  background-color: #ffffff;
+  border: 1px solid #ccd0da;
+}
+
+.plain-card-interactive {
+  background-color: #ffffff;
+  border: 1px solid #ccd0da;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.plain-card-interactive:hover {
+  border-color: #1e66f5;
+  background-color: #f8f9fc;
+}

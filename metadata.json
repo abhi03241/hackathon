@@ -1,0 +1,6 @@
+{
+  "name": "NG Yoga Studio — Programme Routing & Membership OS",
+  "description": "Clinical health-first programme routing, capacity-locked batch booking, front-desk check-in, and member retention triage for NG Yoga Studio, Ashok Nagar, Indore.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

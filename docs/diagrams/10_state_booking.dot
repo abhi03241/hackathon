@@ -1,0 +1,49 @@
+digraph StateBookingLifecycle {
+    graph [
+        label="State Machine -- Booking Lifecycle"
+        labelloc=t
+        fontname="Helvetica"
+        fontsize=15
+        rankdir=LR
+        splines=curved
+        nodesep=1.2
+        ranksep=1.5
+        bgcolor="white"
+    ]
+    node [fontname="Helvetica" fontsize=11]
+    edge [fontname="Helvetica" fontsize=10]
+
+    START [shape=circle style=filled fillcolor=black width=0.35 label=""]
+    END   [shape=doublecircle style=filled fillcolor=black width=0.35 label=""]
+
+    node [shape=box style="rounded,filled" penwidth=2]
+
+    REQUESTED   [fillcolor="#F3F4F6" color="#6B7280" label="BOOKING REQUESTED\n[member submits form]"]
+    VALIDATED   [fillcolor="#DBEAFE" color="#1D4ED8" label="VALIDATION PASSED\n[routing + capacity + trial checks]"]
+    CONFIRMED   [fillcolor="#D1FAE5" color="#065F46" label="CONFIRMED\nstatus = confirmed\nbooked_count incremented"]
+    WAITLISTED  [fillcolor="#FEF3C7" color="#D97706" label="WAITLISTED\nstatus = waitlisted\nposition assigned"]
+    ATTENDED    [fillcolor="#D1FAE5" color="#065F46" label="ATTENDED\ncheckin record created"]
+    CANCELLED   [fillcolor="#FEE2E2" color="#991B1B" label="CANCELLED\nstatus = cancelled\nbooked_count decremented"]
+
+    // Rejection terminal
+    node [shape=box style="rounded,filled" fillcolor="#FEE2E2" color="#991B1B" penwidth=2]
+    REJECTED [label="REJECTED\n[no DB record created]\nReason returned to client"]
+
+    START -> REQUESTED [label="member clicks Book"]
+
+    REQUESTED -> VALIDATED  [label="R1-R6 pass\ncapacity check pass\ntrial check pass" color="#065F46"]
+    REQUESTED -> WAITLISTED [label="[B1] batch full\nmember chooses waitlist" color="#D97706"]
+    REQUESTED -> REJECTED   [label="programme blocked\nor trial already used" color=red]
+
+    VALIDATED -> CONFIRMED  [label="INSERT booking\nUPDATE booked_count\n(within transaction)"]
+
+    CONFIRMED -> ATTENDED   [label="staff checks in member\n[B4: membership must be active]"]
+    CONFIRMED -> CANCELLED  [label="member or staff cancels"]
+
+    WAITLISTED -> CONFIRMED [label="auto-promoted:\nbooking cancelled by another member\nwaitlist.promote() called" color="#065F46"]
+    WAITLISTED -> CANCELLED [label="member withdraws\nfrom waitlist"]
+
+    ATTENDED -> END  [label="class complete"]
+    CANCELLED -> END [label="slot freed\ntriggers waitlist check"]
+    REJECTED  -> END [label="no state stored"]
+}
